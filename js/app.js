@@ -55,6 +55,15 @@ const gameBoard = (() => {
     return {resetBoard, checkDiagonals, checkColumns, checkRows, checkWinPattern, setBoardTile};
   })();
 
+  const ui = (() => {
+    const tileMarker = (tile, token) => {
+      if(tile.textContent == ''){
+        tile.textContent = token;
+      }
+    }
+    return {tileMarker};
+  })();
+
 let menu = document.getElementById('game-menu');
 
 let startBtn = document.getElementById('start-game');
