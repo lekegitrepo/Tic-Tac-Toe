@@ -55,6 +55,35 @@ const gameBoard = (() => {
     return {resetBoard, checkDiagonals, checkColumns, checkRows, checkWinPattern, setBoardTile};
   })();
 
+  const player = (name, token) => {
+    const score = 0;
+    return {name, token, score};
+};
+
+const gameManager = (player1, player2) => {
+    let currentPlayer = player1;
+
+    const roundSelector = () => {
+      currentPlayer = (currentPlayer === player1) ? player2 : player1;
+      return currentPlayer;
+    }
+
+    const getCurrentPlayer = () => currentPlayer;
+
+    const winner = (winToken) => {
+      if(winToken){
+        if (winToken == player1.token){
+          console.log(`player1 has won ${player1.name} score: ${player1.playerScore}`);
+          return player1.countScore();
+        }else if (winToken == player2.token){
+          console.log(`player2 has won ${player2.name} score: ${player2.playerScore}`);
+          return player2.countScore();
+        }
+      }
+    }
+    return {getCurrentPlayer, winner, roundSelector};
+};
+
   const ui = (() => {
     const tileMarker = (tile, token) => {
       if(tile.textContent == ''){
