@@ -1,0 +1,17 @@
+.board-hidden{
+  display: none;
+}
+.board-tile {
+  height: 150px;
+  width: 150px;
+}
+
+.black-tile {
+  background-color: #383838;
+  color: aliceblue !important;
+  font-size: 40px!important;
+}
+
+.board-tile:hover {
+  background-color: #2c2c2c;
+}
