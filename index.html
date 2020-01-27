@@ -19,7 +19,7 @@
       <h1 class="display-4 text-center">TIC-TAC-TOE-GAME</h1>
     </header>
     <section>
-      <form id="game-menu" class="w-50 mx-auto">
+      <div id="game-menu" class="w-50 mx-auto">
         <div class="form-group">
           <label for="playerX">Player X:</label>
           <input type="text" class="form-control" placeholder="Enter Your Name" id="playerX">
@@ -28,8 +28,8 @@
           <label for="playerO">Player O:</label>
           <input type="text" class="form-control" placeholder="Enter Your Name" id="playerO">
         </div>
-        <button type="submit" class="btn btn-primary">Start Game</button>
-      </form>
+        <button id="start-game" type="submit" class="btn btn-primary">Start Game</button>
+      </div>
       <!--End of Form-->
 
       <div class="col-8 mx-auto board board-hidden" id="board-game">
