@@ -90,7 +90,10 @@ const gameManager = (player1, player2) => {
         tile.textContent = token;
       }
     }
-    return {tileMarker};
+    const clearBoard = (tile) {
+      tile.textContent = '';
+    }
+    return {tileMarker, clearBoard};
   })();
 
   function handleGame() {
@@ -108,6 +111,10 @@ if(player1 == '' && player2 == ''){
   player2 = 'playerO';
 }
 
+function resetGame() {
+  gameBoard.resetBoard();
+  ui.clearBoard();
+}
 let menu = document.getElementById('game-menu');
 
 let playerX = player(player1, 'X');
@@ -142,6 +149,7 @@ function initializePlay() {
             console.log(playerO.name);
           }
           resetGame.style.display = 'block';
+
           boardTiles.removeEventListener('click', handleGame)
         }
       }
