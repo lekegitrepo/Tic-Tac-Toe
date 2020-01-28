@@ -97,8 +97,8 @@ const gameManager = (player1, player2) => {
     console.log('activate new buttons');
   }
 
-let player1 = document.getElementById('playerX').value;
-let player2 = document.getElementById('playerO').value;
+let player1 = document.getElementById('playerX');
+let player2 = document.getElementById('playerO');
 if(player1 == '' && player2 == ''){
   player1 = 'playerX';
   player2 = 'playerO';
@@ -113,12 +113,11 @@ let menu = document.getElementById('game-menu');
 let playerX = player(player1, 'X');
 let playerO = player(player2, 'O');
 let gm = gameManager(playerO, playerX);
-
 let startBtn = document.getElementById('start-game');
 startBtn.addEventListener('click', initializePlay);
-
+let boardTiles = document.getElementById('board-game');
+let playerName = document.getElementById('playerName');
 function initializePlay() {
-  let boardTiles = document.getElementById('board-game');
     boardTiles.style.display = 'block';
     boardTiles.addEventListener('click', (e) => {
       if(gameBoard.checkWinPattern() == 'X' || gameBoard.checkWinPattern() == 'O'){
@@ -128,7 +127,7 @@ function initializePlay() {
         gameBoard.setBoardTile(parseInt(e.target.getAttribute('data-position')), gm.getCurrentPlayer().token)
         gm.roundSelector()
         if (gameBoard.checkWinPattern()) {
-          console.log('we have a winner')
+          console.log('we have a winner');
           boardTiles.removeEventListener('click', handleGame)
         }
       }
