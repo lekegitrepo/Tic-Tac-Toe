@@ -127,6 +127,10 @@ function initializePlay() {
         ui.tileMarker(e.target, gm.getCurrentPlayer().token)
         gameBoard.setBoardTile(parseInt(e.target.getAttribute('data-position')), gm.getCurrentPlayer().token)
         gm.roundSelector()
+        if (gameBoard.checkWinPattern()) {
+          console.log('we have a winner')
+          boardTiles.removeEventListener('click', handleGame)
+        }
       }
     });
     menu.style.display = 'none';
