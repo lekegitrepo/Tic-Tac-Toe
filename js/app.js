@@ -105,7 +105,7 @@ if(player1 == '' && player2 == ''){
 }else if(player1 == ''){
   player1 = 'playerX';
 }else if(player2 == ''){
-  player1 = 'playerO';
+  player2 = 'playerO';
 }
 
 let menu = document.getElementById('game-menu');
@@ -118,6 +118,10 @@ startBtn.addEventListener('click', initializePlay);
 let boardTiles = document.getElementById('board-game');
 let playerName = document.getElementById('playerName');
 function initializePlay() {
+  playerName.style.display = 'block';
+  let uiString = `<p>PlayerX(${document.getElementById('playerX').value})</p>
+  <p>PlayerO(${document.getElementById('playerO').value})</p>`;
+      playerName.innerHTML += uiString;
     boardTiles.style.display = 'block';
     boardTiles.addEventListener('click', (e) => {
       if(gameBoard.checkWinPattern() == 'X' || gameBoard.checkWinPattern() == 'O'){
@@ -128,6 +132,16 @@ function initializePlay() {
         gm.roundSelector()
         if (gameBoard.checkWinPattern()) {
           console.log('we have a winner');
+          if(gameBoard.checkWinPattern() == playerX.token){
+            winner.style.display = 'block';
+            winner.textContent = playerX.name;
+            console.log(playerX.name);
+          }else{
+            winner.style.display = 'block';
+            winner.textContent = playerO.name;
+            console.log(playerO.name);
+          }
+          resetGame.style.display = 'block';
           boardTiles.removeEventListener('click', handleGame)
         }
       }
