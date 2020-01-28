@@ -105,29 +105,42 @@ function handleGame() {
   console.log("activate new buttons");
 }
 
-let playerX = player("playerX-name", "X");
-let playerO = player("playerO-name", "O");
-let gm = gameManager(playerX, playerO);
-
 function resetGame() {
   let tiles = document.getElementsByClassName("board-tile");
   [...tiles].forEach(tile => ui.clearBoard(tile));
   gameBoard.resetBoard();
   console.log("we have a winner we need to reset");
 }
+
 let menu = document.getElementById("game-menu");
 let boardTiles = document.getElementById("board-game");
-let playerName = document.getElementById("playerName");
+
 let startBtn = document.getElementById("start-game");
 let resetGameBtn = document.getElementById("resetGame");
 
 startBtn.addEventListener("click", initializePlay);
 
-function initializePlay() {
+const displayPlayerName = () => {
+  const playerXname = document.getElementById("playerX").value;
+  const playerOname = document.getElementById("playerO").value;
+  const playerX = () => player(playerXname, "X");
+  const playerO = () => player(playerOname, "O");
+
+  return { playerO, playerX };
+};
+
+function playersName(playerXname, playerOname) {
+  let playerName = document.getElementById("playerName");
   playerName.style.display = "block";
-  let uiString = `<p>PlayerX(${document.getElementById("playerX").value})</p>
-  <p>PlayerO(${document.getElementById("playerO").value})</p>`;
+  let uiString = `<p>PlayerX(${playerXname})</p>
+  <p>PlayerO(${playerOname})</p>`;
   playerName.innerHTML += uiString;
+}
+
+function initializePlay() {
+  const display = displayPlayerName();
+  playersName(display.playerX().name, display.playerO().name);
+  let gm = gameManager(display.playerX(), display.playerO());
   boardTiles.style.display = "block";
   boardTiles.addEventListener("click", e => {
     if (
@@ -146,7 +159,9 @@ function initializePlay() {
         console.log("we have a winner");
         console.log(gm.winner(gameBoard.checkWinPattern()).name);
         winner.style.display = "block";
-        winner.textContent = gm.winner(gameBoard.checkWinPattern()).name;
+        winner.textContent = `Congratulations ${
+          gm.winner(gameBoard.checkWinPattern()).name
+        } you have won!`;
 
         resetGameBtn.style.display = "block";
         resetGameBtn.addEventListener("click", resetGame);
