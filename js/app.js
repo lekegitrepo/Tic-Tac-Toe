@@ -52,13 +52,20 @@ const gameBoard = (() => {
     return (board = ["", "", "", "", "", "", "", "", ""]);
   };
 
+  const boardFilled = () => {
+    board.every(tile => {
+      tile !== "";
+    });
+  };
+
   return {
     resetBoard,
     checkDiagonals,
     checkColumns,
     checkRows,
     checkWinPattern,
-    setBoardTile
+    setBoardTile,
+    boardFilled
   };
 })();
 
@@ -166,8 +173,11 @@ function initializePlay() {
         resetGameBtn.style.display = "block";
         resetGameBtn.addEventListener("click", resetGame);
         boardTiles.removeEventListener("click", handleGame);
+      } else if (!gameBoard.checkWinPattern() && gameBoard.boardFilled()) {
+        console.log("it's tie");
       }
     }
+    console.log(gameBoard.boardFilled());
   });
   menu.style.display = "none";
 }
