@@ -80,15 +80,9 @@ const gameManager = (player1, player2) => {
   const winner = winToken => {
     if (winToken) {
       if (winToken == player1.token) {
-        console.log(
-          `player1 has won ${player1.name} score: ${player1.playerScore}`
-        );
-        return player1.countScore();
+        return player1;
       } else if (winToken == player2.token) {
-        console.log(
-          `player2 has won ${player2.name} score: ${player2.playerScore}`
-        );
-        return player2.countScore();
+        return player2;
       }
     }
   };
@@ -111,16 +105,9 @@ function handleGame() {
   console.log("activate new buttons");
 }
 
-let player1 = document.getElementById("playerX");
-let player2 = document.getElementById("playerO");
-if (player1 == "" && player2 == "") {
-  player1 = "playerX";
-  player2 = "playerO";
-} else if (player1 == "") {
-  player1 = "playerX";
-} else if (player2 == "") {
-  player2 = "playerO";
-}
+let playerX = player("playerX-name", "X");
+let playerO = player("playerO-name", "O");
+let gm = gameManager(playerX, playerO);
 
 function resetGame() {
   let tiles = document.getElementsByClassName("board-tile");
@@ -133,10 +120,6 @@ let boardTiles = document.getElementById("board-game");
 let playerName = document.getElementById("playerName");
 let startBtn = document.getElementById("start-game");
 let resetGameBtn = document.getElementById("resetGame");
-
-let playerX = player(player1, "X");
-let playerO = player(player2, "O");
-let gm = gameManager(playerO, playerX);
 
 startBtn.addEventListener("click", initializePlay);
 
@@ -161,15 +144,10 @@ function initializePlay() {
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
         console.log("we have a winner");
-        if (gameBoard.checkWinPattern() == playerX.token) {
-          winner.style.display = "block";
-          winner.textContent = playerX.name;
-          console.log(playerX.name);
-        } else {
-          winner.style.display = "block";
-          winner.textContent = playerO.name;
-          console.log(playerO.name);
-        }
+        console.log(gm.winner(gameBoard.checkWinPattern()).name);
+        winner.style.display = "block";
+        winner.textContent = gm.winner(gameBoard.checkWinPattern()).name;
+
         resetGameBtn.style.display = "block";
         resetGameBtn.addEventListener("click", resetGame);
         boardTiles.removeEventListener("click", handleGame);
