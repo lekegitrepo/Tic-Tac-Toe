@@ -1,4 +1,4 @@
-.board-hidden, #newGame, #winner{
+.board-hidden, #newGame, #winner, #playerName{
   display: none;
 }
 .board-tile {
