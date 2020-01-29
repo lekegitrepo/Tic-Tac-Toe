@@ -103,10 +103,6 @@ const ui = (() => {
   return { tileMarker, clearBoard };
 })();
 
-// function handleGame() {
-//   console.log("activate new buttons");
-// }
-
 let menu = document.getElementById("game-menu");
 let boardTiles = document.getElementById("board-game");
 
@@ -139,6 +135,11 @@ function playersName(playerXname, playerOname) {
   playerName.innerHTML += uiString;
 }
 
+function setGameStatus(){
+  resetGameBtn.style.display = "block";
+  resetGameBtn.addEventListener("click", resetGame);
+}
+
 function initializePlay() {
   const display = displayPlayerName();
   playersName(display.playerX().name, display.playerO().name);
@@ -149,7 +150,7 @@ function initializePlay() {
       gameBoard.checkWinPattern() == "X" ||
       gameBoard.checkWinPattern() == "O"
     ) {
-      boardTiles.removeEventListener("click");
+      boardTiles.removeEventListener("click", setGameStatus());
     } else {
       ui.tileMarker(e.target, gm.getCurrentPlayer().token);
       gameBoard.setBoardTile(
@@ -163,12 +164,9 @@ function initializePlay() {
           gm.winner(gameBoard.checkWinPattern()).name
         } you have won!`;
 
-        resetGameBtn.style.display = "block";
-        resetGameBtn.addEventListener("click", resetGame);
-        boardTiles.removeEventListener("click");
+        boardTiles.removeEventListener("click", setGameStatus());
       } else if (gameBoard.checkWinPattern() == false) {
-        resetGameBtn.addEventListener("click", resetGame);
-        boardTiles.removeEventListener("click");
+        boardTiles.removeEventListener("click", setGameStatus());
         winner.textContent = "It's a tie";
       }
     }
