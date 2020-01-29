@@ -141,7 +141,7 @@ function setGameStatus(){
 
 function winnerMessage(name=''){
   let message = document.getElementById('winner');
-  message.innerHTML = name == ''? 'Game Tie':`Congratulation ${name} won the Game`;
+  message.innerHTML = name == ''?`Congratulation ${name} won the Game`:'Game Tie';
   setTimeout( () => {
     message.innerHTML = '';
   },3000);
