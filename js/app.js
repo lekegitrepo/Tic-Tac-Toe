@@ -115,7 +115,6 @@ function resetGame() {
   let tiles = document.getElementsByClassName("board-tile");
   [...tiles].forEach(tile => ui.clearBoard(tile));
   gameBoard.resetBoard();
-  winner.textContent = '';
 }
 
 const displayPlayerName = () => {
@@ -140,6 +139,14 @@ function setGameStatus(){
   resetGameBtn.addEventListener("click", resetGame);
 }
 
+function winnerMessage(name){
+  let message = document.getElementById('winner');
+  message.innerHTML = `Congratulation ${name} won the Game`;
+  setTimeout( () => {
+    message.innerHTML = '';
+  },3000);
+}
+
 function initializePlay() {
   const display = displayPlayerName();
   playersName(display.playerX().name, display.playerO().name);
@@ -160,9 +167,8 @@ function initializePlay() {
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
         winner.style.display = "block";
-        winner.textContent = `Congratulations ${
-          gm.winner(gameBoard.checkWinPattern()).name
-        } you have won!`;
+        let name = gm.winner(gameBoard.checkWinPattern()).name
+        winnerMessage(name);
 
         boardTiles.removeEventListener("click", setGameStatus());
       } else if (gameBoard.checkWinPattern() == false) {
