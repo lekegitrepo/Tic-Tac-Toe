@@ -103,9 +103,9 @@ const ui = (() => {
   return { tileMarker, clearBoard };
 })();
 
-function handleGame() {
-  console.log("activate new buttons");
-}
+// function handleGame() {
+//   console.log("activate new buttons");
+// }
 
 let menu = document.getElementById("game-menu");
 let boardTiles = document.getElementById("board-game");
@@ -149,7 +149,7 @@ function initializePlay() {
       gameBoard.checkWinPattern() == "X" ||
       gameBoard.checkWinPattern() == "O"
     ) {
-      boardTiles.removeEventListener("click", handleGame);
+      boardTiles.removeEventListener("click");
     } else {
       ui.tileMarker(e.target, gm.getCurrentPlayer().token);
       gameBoard.setBoardTile(
@@ -165,10 +165,10 @@ function initializePlay() {
 
         resetGameBtn.style.display = "block";
         resetGameBtn.addEventListener("click", resetGame);
-        boardTiles.removeEventListener("click", handleGame);
+        boardTiles.removeEventListener("click");
       } else if (gameBoard.checkWinPattern() == false) {
         resetGameBtn.addEventListener("click", resetGame);
-        boardTiles.removeEventListener("click", handleGame);
+        boardTiles.removeEventListener("click");
         winner.textContent = "It's a tie";
       }
     }
