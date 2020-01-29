@@ -107,20 +107,20 @@ function handleGame() {
   console.log("activate new buttons");
 }
 
-function resetGame() {
-  let tiles = document.getElementsByClassName("board-tile");
-  [...tiles].forEach(tile => ui.clearBoard(tile));
-  gameBoard.resetBoard();
-  console.log("we have a winner we need to reset");
-}
-
 let menu = document.getElementById("game-menu");
 let boardTiles = document.getElementById("board-game");
 
 let startBtn = document.getElementById("start-game");
 let resetGameBtn = document.getElementById("resetGame");
-
+let winner = document.getElementById("winner");
 startBtn.addEventListener("click", initializePlay);
+
+function resetGame() {
+  let tiles = document.getElementsByClassName("board-tile");
+  [...tiles].forEach(tile => ui.clearBoard(tile));
+  gameBoard.resetBoard();
+  winner.textContent = '';
+}
 
 const displayPlayerName = () => {
   const playerXname = document.getElementById("playerX").value;
@@ -158,8 +158,6 @@ function initializePlay() {
       );
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
-        console.log("we have a winner");
-        console.log(gm.winner(gameBoard.checkWinPattern()).name);
         winner.style.display = "block";
         winner.textContent = `Congratulations ${
           gm.winner(gameBoard.checkWinPattern()).name
@@ -171,7 +169,6 @@ function initializePlay() {
       } else if (gameBoard.checkWinPattern() == false) {
         resetGameBtn.addEventListener("click", resetGame);
         boardTiles.removeEventListener("click", handleGame);
-        console.log("it's tie");
         winner.textContent = "It's a tie";
       }
     }
