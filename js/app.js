@@ -108,7 +108,6 @@ let boardTiles = document.getElementById("board-game");
 
 let startBtn = document.getElementById("start-game");
 let resetGameBtn = document.getElementById("resetGame");
-let winner = document.getElementById("winner");
 startBtn.addEventListener("click", initializePlay);
 
 function resetGame() {
@@ -139,9 +138,10 @@ function setGameStatus(){
   resetGameBtn.addEventListener("click", resetGame);
 }
 
-function winnerMessage(name=''){
-  let message = document.getElementById('winner');
-  message.innerHTML = name == ''?`Congratulation ${name} won the Game`:'Game Tie';
+function winnerMessage(mssg){
+  let message = document.getElementById("winner");
+  winner.style.display = "block";
+  message.innerHTML = mssg;
   setTimeout( () => {
     message.innerHTML = '';
   },3000);
@@ -166,13 +166,12 @@ function initializePlay() {
       );
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
-        winner.style.display = "block";
-        let name = gm.winner(gameBoard.checkWinPattern()).name
+        let name = `congratulations ${gm.winner(gameBoard.checkWinPattern()).name} you have won the game!`;
         winnerMessage(name);
         boardTiles.removeEventListener("click", setGameStatus());
       } else if (gameBoard.checkWinPattern() == false) {
         boardTiles.removeEventListener("click", setGameStatus());
-        winnerMessage();
+        winnerMessage("It's a tie");
       }
     }
   });
