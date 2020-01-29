@@ -45,17 +45,13 @@ const gameBoard = (() => {
       return checkRows();
     } else if (checkDiagonals()) {
       return checkDiagonals();
+    } else if (!board.includes("")) {
+      return false;
     }
   };
 
   const resetBoard = () => {
     return (board = ["", "", "", "", "", "", "", "", ""]);
-  };
-
-  const boardFilled = () => {
-    board.every(tile => {
-      tile !== "";
-    });
   };
 
   return {
@@ -64,8 +60,7 @@ const gameBoard = (() => {
     checkColumns,
     checkRows,
     checkWinPattern,
-    setBoardTile,
-    boardFilled
+    setBoardTile
   };
 })();
 
@@ -173,11 +168,13 @@ function initializePlay() {
         resetGameBtn.style.display = "block";
         resetGameBtn.addEventListener("click", resetGame);
         boardTiles.removeEventListener("click", handleGame);
-      } else if (!gameBoard.checkWinPattern() && gameBoard.boardFilled()) {
+      } else if (gameBoard.checkWinPattern() == false) {
+        resetGameBtn.addEventListener("click", resetGame);
+        boardTiles.removeEventListener("click", handleGame);
         console.log("it's tie");
+        winner.textContent = "It's a tie";
       }
     }
-    console.log(gameBoard.boardFilled());
   });
   menu.style.display = "none";
 }
