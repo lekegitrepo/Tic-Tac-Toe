@@ -139,9 +139,9 @@ function setGameStatus(){
   resetGameBtn.addEventListener("click", resetGame);
 }
 
-function winnerMessage(name){
+function winnerMessage(name=''){
   let message = document.getElementById('winner');
-  message.innerHTML = `Congratulation ${name} won the Game`;
+  message.innerHTML = name == ''? 'Game Tie':`Congratulation ${name} won the Game`;
   setTimeout( () => {
     message.innerHTML = '';
   },3000);
@@ -169,11 +169,10 @@ function initializePlay() {
         winner.style.display = "block";
         let name = gm.winner(gameBoard.checkWinPattern()).name
         winnerMessage(name);
-
         boardTiles.removeEventListener("click", setGameStatus());
       } else if (gameBoard.checkWinPattern() == false) {
         boardTiles.removeEventListener("click", setGameStatus());
-        winner.textContent = "It's a tie";
+        winnerMessage();
       }
     }
   });
