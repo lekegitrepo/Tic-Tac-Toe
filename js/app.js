@@ -1,8 +1,8 @@
 const gameBoard = (() => {
-  let board = ['', '', '', '', '', '', '', '', ''];
+  const board = ['', '', '', '', '', '', '', '', ''];
 
   const setBoardTile = (index, value) => {
-    if (board[index] == '') {
+    if (board[index] === '') {
       board[index] = value;
     }
   };
@@ -81,9 +81,9 @@ const gameManager = (player1, player2) => {
 
   const winner = winToken => {
     if (winToken) {
-      if (winToken == player1.token) {
+      if (winToken === player1.token) {
         return player1;
-      } else if (winToken == player2.token) {
+      } else if (winToken === player2.token) {
         return player2;
       }
     }
@@ -93,7 +93,7 @@ const gameManager = (player1, player2) => {
 
 const ui = (() => {
   const tileMarker = (tile, token) => {
-    if (tile.textContent == '') {
+    if (tile.textContent === '') {
       tile.textContent = token;
     }
   };
@@ -103,15 +103,15 @@ const ui = (() => {
   return { tileMarker, clearBoard };
 })();
 
-let menu = document.getElementById('game-menu');
-let boardTiles = document.getElementById('board-game');
+const menu = document.getElementById('game-menu');
+const boardTiles = document.getElementById('board-game');
 
-let startBtn = document.getElementById('start-game');
-let resetGameBtn = document.getElementById('resetGame');
+const startBtn = document.getElementById('start-game');
+const resetGameBtn = document.getElementById('resetGame');
 startBtn.addEventListener('click', initializePlay);
 
 function resetGame() {
-  let tiles = document.getElementsByClassName('board-tile');
+  const tiles = document.getElementsByClassName('board-tile');
   [...tiles].forEach(tile => ui.clearBoard(tile));
   gameBoard.resetBoard();
 }
@@ -126,9 +126,9 @@ const displayPlayerName = () => {
 };
 
 function playersName(playerXname, playerOname) {
-  let playerName = document.getElementById('playerName');
+  const playerName = document.getElementById('playerName');
   playerName.style.display = 'block';
-  let uiString = `<p>PlayerX(${playerXname})</p>
+  const uiString = `<p>PlayerX(${playerXname})</p>
   <p>PlayerO(${playerOname})</p>`;
   playerName.innerHTML += uiString;
 }
@@ -139,7 +139,7 @@ function setGameStatus() {
 }
 
 function winnerMessage(mssg) {
-  let message = document.getElementById('winner');
+  const message = document.getElementById('winner');
   winner.style.display = 'block';
   message.innerHTML = mssg;
   setTimeout(() => {
@@ -150,12 +150,12 @@ function winnerMessage(mssg) {
 function initializePlay() {
   const display = displayPlayerName();
   playersName(display.playerX().name, display.playerO().name);
-  let gm = gameManager(display.playerX(), display.playerO());
+  const gm = gameManager(display.playerX(), display.playerO());
   boardTiles.style.display = 'block';
   boardTiles.addEventListener('click', e => {
     if (
-      gameBoard.checkWinPattern() == 'X' ||
-      gameBoard.checkWinPattern() == 'O'
+      gameBoard.checkWinPattern() === 'X' ||
+      gameBoard.checkWinPattern() === 'O'
     ) {
       boardTiles.removeEventListener('click', setGameStatus());
     } else {
@@ -166,10 +166,10 @@ function initializePlay() {
       );
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
-        let name = `congratulations ${gm.winner(gameBoard.checkWinPattern()).name} you have won the game!`;
+        const name = `congratulations ${gm.winner(gameBoard.checkWinPattern()).name} you have won the game!`;
         winnerMessage(name);
         boardTiles.removeEventListener('click', setGameStatus());
-      } else if (gameBoard.checkWinPattern() == false) {
+      } else if (gameBoard.checkWinPattern() === false) {
         boardTiles.removeEventListener('click', setGameStatus());
         winnerMessage("It's a tie");
       }
