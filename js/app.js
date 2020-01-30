@@ -1,8 +1,8 @@
 const gameBoard = (() => {
-  let board = ["", "", "", "", "", "", "", "", ""];
+  let board = ['', '', '', '', '', '', '', '', ''];
 
   const setBoardTile = (index, value) => {
-    if (board[index] == "") {
+    if (board[index] == '') {
       board[index] = value;
     }
   };
@@ -45,13 +45,13 @@ const gameBoard = (() => {
       return checkRows();
     } else if (checkDiagonals()) {
       return checkDiagonals();
-    } else if (!board.includes("")) {
+    } else if (!board.includes('')) {
       return false;
     }
   };
 
   const resetBoard = () => {
-    return (board = ["", "", "", "", "", "", "", "", ""]);
+    return (board = ['', '', '', '', '', '', '', '', '']);
   };
 
   return {
@@ -93,87 +93,87 @@ const gameManager = (player1, player2) => {
 
 const ui = (() => {
   const tileMarker = (tile, token) => {
-    if (tile.textContent == "") {
+    if (tile.textContent == '') {
       tile.textContent = token;
     }
   };
   const clearBoard = tile => {
-    tile.textContent = "";
+    tile.textContent = '';
   };
   return { tileMarker, clearBoard };
 })();
 
-let menu = document.getElementById("game-menu");
-let boardTiles = document.getElementById("board-game");
+let menu = document.getElementById('game-menu');
+let boardTiles = document.getElementById('board-game');
 
-let startBtn = document.getElementById("start-game");
-let resetGameBtn = document.getElementById("resetGame");
-startBtn.addEventListener("click", initializePlay);
+let startBtn = document.getElementById('start-game');
+let resetGameBtn = document.getElementById('resetGame');
+startBtn.addEventListener('click', initializePlay);
 
 function resetGame() {
-  let tiles = document.getElementsByClassName("board-tile");
+  let tiles = document.getElementsByClassName('board-tile');
   [...tiles].forEach(tile => ui.clearBoard(tile));
   gameBoard.resetBoard();
 }
 
 const displayPlayerName = () => {
-  const playerXname = document.getElementById("playerX").value;
-  const playerOname = document.getElementById("playerO").value;
-  const playerX = () => player(playerXname, "X");
-  const playerO = () => player(playerOname, "O");
+  const playerXname = document.getElementById('playerX').value;
+  const playerOname = document.getElementById('playerO').value;
+  const playerX = () => player(playerXname, 'X');
+  const playerO = () => player(playerOname, 'O');
 
   return { playerO, playerX };
 };
 
 function playersName(playerXname, playerOname) {
-  let playerName = document.getElementById("playerName");
-  playerName.style.display = "block";
+  let playerName = document.getElementById('playerName');
+  playerName.style.display = 'block';
   let uiString = `<p>PlayerX(${playerXname})</p>
   <p>PlayerO(${playerOname})</p>`;
   playerName.innerHTML += uiString;
 }
 
-function setGameStatus(){
-  resetGameBtn.style.display = "block";
-  resetGameBtn.addEventListener("click", resetGame);
+function setGameStatus() {
+  resetGameBtn.style.display = 'block';
+  resetGameBtn.addEventListener('click', resetGame);
 }
 
-function winnerMessage(mssg){
-  let message = document.getElementById("winner");
-  winner.style.display = "block";
+function winnerMessage(mssg) {
+  let message = document.getElementById('winner');
+  winner.style.display = 'block';
   message.innerHTML = mssg;
-  setTimeout( () => {
+  setTimeout(() => {
     message.innerHTML = '';
-  },3000);
+  }, 3000);
 }
 
 function initializePlay() {
   const display = displayPlayerName();
   playersName(display.playerX().name, display.playerO().name);
   let gm = gameManager(display.playerX(), display.playerO());
-  boardTiles.style.display = "block";
-  boardTiles.addEventListener("click", e => {
+  boardTiles.style.display = 'block';
+  boardTiles.addEventListener('click', e => {
     if (
-      gameBoard.checkWinPattern() == "X" ||
-      gameBoard.checkWinPattern() == "O"
+      gameBoard.checkWinPattern() == 'X' ||
+      gameBoard.checkWinPattern() == 'O'
     ) {
-      boardTiles.removeEventListener("click", setGameStatus());
+      boardTiles.removeEventListener('click', setGameStatus());
     } else {
       ui.tileMarker(e.target, gm.getCurrentPlayer().token);
       gameBoard.setBoardTile(
-        parseInt(e.target.getAttribute("data-position")),
+        parseInt(e.target.getAttribute('data-position')),
         gm.getCurrentPlayer().token
       );
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
         let name = `congratulations ${gm.winner(gameBoard.checkWinPattern()).name} you have won the game!`;
         winnerMessage(name);
-        boardTiles.removeEventListener("click", setGameStatus());
+        boardTiles.removeEventListener('click', setGameStatus());
       } else if (gameBoard.checkWinPattern() == false) {
-        boardTiles.removeEventListener("click", setGameStatus());
+        boardTiles.removeEventListener('click', setGameStatus());
         winnerMessage("It's a tie");
       }
     }
   });
-  menu.style.display = "none";
+  menu.style.display = 'none';
 }
