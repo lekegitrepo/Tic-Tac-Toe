@@ -109,39 +109,6 @@ const boardTiles = document.getElementById('board-game');
 const startBtn = document.getElementById('start-game');
 const resetGameBtn = document.getElementById('resetGame');
 
-function initializePlay() {
-  const display = displayPlayerName();
-  playersName(display.playerX().name, display.playerO().name);
-  const gm = gameManager(display.playerX(), display.playerO());
-  boardTiles.style.display = 'block';
-  boardTiles.addEventListener('click', e => {
-    if (
-      gameBoard.checkWinPattern() === 'X'
-      || gameBoard.checkWinPattern() === 'O'
-    ) {
-      boardTiles.removeEventListener('click', setGameStatus());
-    } else {
-      ui.tileMarker(e.target, gm.getCurrentPlayer().token);
-      gameBoard.setBoardTile(
-        parseInt(e.target.getAttribute('data-position')),
-        gm.getCurrentPlayer().token
-      );
-      gm.roundSelector();
-      if (gameBoard.checkWinPattern()) {
-        const name = `congratulations ${gm.winner(gameBoard.checkWinPattern()).name} you have won the game!`;
-        winnerMessage(name);
-        boardTiles.removeEventListener('click', setGameStatus());
-      } else if (gameBoard.checkWinPattern() === false) {
-        boardTiles.removeEventListener('click', setGameStatus());
-        winnerMessage("It's a tie");
-      }
-    }
-  });
-  menu.style.display = 'none';
-}
-
-startBtn.addEventListener('click', initializePlay);
-
 function resetGame() {
   const tiles = document.getElementsByClassName('board-tile');
   [...tiles].forEach(tile => ui.clearBoard(tile));
@@ -178,3 +145,37 @@ function winnerMessage(mssg) {
     message.innerHTML = '';
   }, 3000);
 }
+
+
+function initializePlay() {
+  const display = displayPlayerName();
+  playersName(display.playerX().name, display.playerO().name);
+  const gm = gameManager(display.playerX(), display.playerO());
+  boardTiles.style.display = 'block';
+  boardTiles.addEventListener('click', e => {
+    if (
+      gameBoard.checkWinPattern() === 'X'
+      || gameBoard.checkWinPattern() === 'O'
+    ) {
+      boardTiles.removeEventListener('click', setGameStatus());
+    } else {
+      ui.tileMarker(e.target, gm.getCurrentPlayer().token);
+      gameBoard.setBoardTile(
+        parseInt(e.target.getAttribute('data-position')),
+        gm.getCurrentPlayer().token
+      );
+      gm.roundSelector();
+      if (gameBoard.checkWinPattern()) {
+        const name = `congratulations ${gm.winner(gameBoard.checkWinPattern()).name} you have won the game!`;
+        winnerMessage(name);
+        boardTiles.removeEventListener('click', setGameStatus());
+      } else if (gameBoard.checkWinPattern() === false) {
+        boardTiles.removeEventListener('click', setGameStatus());
+        winnerMessage("It's a tie");
+      }
+    }
+  });
+  menu.style.display = 'none';
+}
+
+startBtn.addEventListener('click', initializePlay);
