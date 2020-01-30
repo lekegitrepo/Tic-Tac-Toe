@@ -169,7 +169,7 @@ function initializePlay() {
     } else {
       ui.tileMarker(e.target, gm.getCurrentPlayer().token);
       gameBoard.setBoardTile(
-        parseInt(e.target.getAttribute('data-position')),
+        parseInt(e.target.getAttribute('data-position'), 10),
         gm.getCurrentPlayer().token,
       );
       gm.roundSelector();
