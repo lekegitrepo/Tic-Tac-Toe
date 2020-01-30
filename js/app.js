@@ -46,11 +46,11 @@ const gameBoard = (() => {
     if (checkColumns()) {
       checkWin = checkColumns();
     } else if (checkRows()) {
-      checkWin =  checkRows();
+      checkWin = checkRows();
     } else if (checkDiagonals()) {
       checkWin = checkDiagonals();
     } else if (!board.includes('')) {
-      checkWin =  false;
+      checkWin = false;
     }
     return checkWin;
   };
