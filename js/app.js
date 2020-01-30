@@ -51,7 +51,8 @@ const gameBoard = (() => {
   };
 
   const resetBoard = () => {
-    return (board = ['', '', '', '', '', '', '', '', '']);
+    board = ['', '', '', '', '', '', '', '', ''];
+    return board;
   };
 
   return {
@@ -60,7 +61,7 @@ const gameBoard = (() => {
     checkColumns,
     checkRows,
     checkWinPattern,
-    setBoardTile
+    setBoardTile,
   };
 })();
 
