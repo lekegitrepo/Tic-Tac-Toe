@@ -80,13 +80,15 @@ const gameManager = (player1, player2) => {
   const getCurrentPlayer = () => currentPlayer;
 
   const winner = winToken => {
+    let playerWin;
     if (winToken) {
       if (winToken === player1.token) {
-        return player1;
+        playerWin = player1;
       } else if (winToken === player2.token) {
-        return player2;
+        playerWin = player2;
       }
     }
+    return playerWin;
   };
   return { getCurrentPlayer, winner, roundSelector };
 };
