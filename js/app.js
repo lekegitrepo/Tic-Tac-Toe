@@ -162,7 +162,7 @@ function initializePlay() {
       ui.tileMarker(e.target, gm.getCurrentPlayer().token);
       gameBoard.setBoardTile(
         parseInt(e.target.getAttribute('data-position')),
-        gm.getCurrentPlayer().token
+        gm.getCurrentPlayer().token,
       );
       gm.roundSelector();
       if (gameBoard.checkWinPattern()) {
