@@ -115,7 +115,7 @@ function resetGame() {
   let tiles = document.getElementsByClassName("board-tile");
   [...tiles].forEach(tile => ui.clearBoard(tile));
   gameBoard.resetBoard();
-  winner.textContent = '';
+  winner.textContent = "";
 }
 
 const displayPlayerName = () => {
@@ -135,7 +135,7 @@ function playersName(playerXname, playerOname) {
   playerName.innerHTML += uiString;
 }
 
-function setGameStatus(){
+function setGameStatus() {
   resetGameBtn.style.display = "block";
   resetGameBtn.addEventListener("click", resetGame);
 }
