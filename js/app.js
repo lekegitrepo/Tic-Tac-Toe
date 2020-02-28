@@ -1,13 +1,13 @@
 const gameBoard = (() => {
-  let board = ['', '', '', '', '', '', '', '', ''];
+  let arrayTiles = ['', '', '', '', '', '', '', '', ''];
 
   const setBoardTile = (index, value) => {
-    if (board[index] === '') {
-      board[index] = value;
+    if (arrayTiles[index] === '') {
+      arrayTiles[index] = value;
     }
   };
 
-  const checkRows = () => {
+  const checkRows = (board = arrayTiles) => {
     let rows = false;
     if (board[0] === board[1] && board[0] === board[2]) {
       rows = board[0];
@@ -19,7 +19,7 @@ const gameBoard = (() => {
     return rows;
   };
 
-  const checkColumns = () => {
+  const checkColumns = (board = arrayTiles) => {
     let columns = false;
     if (board[0] === board[3] && board[0] === board[6]) {
       columns = board[0];
@@ -31,7 +31,7 @@ const gameBoard = (() => {
     return columns;
   };
 
-  const checkDiagonals = () => {
+  const checkDiagonals = (board = arrayTiles) => {
     let diagonal = false;
     if (board[0] === board[4] && board[0] === board[8]) {
       diagonal = board[0];
@@ -49,15 +49,15 @@ const gameBoard = (() => {
       checkWin = checkRows();
     } else if (checkDiagonals()) {
       checkWin = checkDiagonals();
-    } else if (!board.includes('')) {
+    } else if (!arrayTiles.includes('')) {
       checkWin = false;
     }
     return checkWin;
   };
 
   const resetBoard = () => {
-    board = ['', '', '', '', '', '', '', '', ''];
-    return board;
+    arrayTiles = ['', '', '', '', '', '', '', '', ''];
+    return arrayTiles;
   };
 
   return {
