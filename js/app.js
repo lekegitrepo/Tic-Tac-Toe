@@ -9,11 +9,14 @@ const gameBoard = (() => {
 
   const checkRows = (board = arrayTiles) => {
     let rows = false;
-    if (board[0] === board[1] && board[0] === board[2]) {
+    if ((board[0] !== '') &&
+      (board[0] === board[1] && board[0] === board[2])) {
       rows = board[0];
-    } else if (board[3] === board[4] && board[3] === board[5]) {
+    } else if ((board[3] !== '') &&
+      (board[3] === board[4] && board[3] === board[5])) {
       rows = board[3];
-    } else if (board[6] === board[7] && board[6] === board[8]) {
+    } else if ((board[6] !== '') &&
+      (board[6] === board[7] && board[6] === board[8])) {
       rows = board[6];
     }
     return rows;
@@ -21,11 +24,14 @@ const gameBoard = (() => {
 
   const checkColumns = (board = arrayTiles) => {
     let columns = false;
-    if (board[0] === board[3] && board[0] === board[6]) {
+    if ((board[0] !== '') &&
+      (board[0] === board[3] && board[0] === board[6])) {
       columns = board[0];
-    } else if (board[1] === board[4] && board[1] === board[7]) {
+    } else if ((board[1] !== '') &&
+      (board[1] === board[4] && board[1] === board[7])) {
       columns = board[1];
-    } else if (board[2] === board[5] && board[2] === board[8]) {
+    } else if ((board[2] !== '') &&
+      (board[2] === board[5] && board[2] === board[8])) {
       columns = board[2];
     }
     return columns;
@@ -33,9 +39,11 @@ const gameBoard = (() => {
 
   const checkDiagonals = (board = arrayTiles) => {
     let diagonal = false;
-    if (board[0] === board[4] && board[0] === board[8]) {
+    if ((board[0] !== '') &&
+      (board[0] === board[4] && board[0] === board[8])) {
       diagonal = board[0];
-    } else if (board[2] === board[4] && board[2] === board[6]) {
+    } else if ((board[2] !== '') &&
+      (board[2] === board[4] && board[2] === board[6])) {
       diagonal = board[2];
     }
     return diagonal;
