@@ -40,7 +40,7 @@ Tic-tac-toe (American English), noughts and crosses (British English), or Xs and
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page]().
+Feel free to check the [issues page](https://github.com/lekegitrepo/Tic-Tac-Toe/issues).
 
 ## Show your support
 
